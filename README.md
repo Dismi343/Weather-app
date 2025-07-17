@@ -1,4 +1,4 @@
-# 🌤️ React + FastAPI Weather App
+# 🌤️ React + Python Weather App
 
 A simple full-stack weather forecast app built with:
 
