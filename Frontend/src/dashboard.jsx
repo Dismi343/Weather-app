@@ -1,10 +1,15 @@
 import { useState } from "react";
+import cloudy from "./assets/cloudy.jpg"; 
+import rainy from "./assets/rainy.jpg";
+import sunny from "./assets/sunny.jpg";
+import morecloudy from "./assets/morecloudy.jpg";
 
 export default function Dashboard() {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [weather,setWeather]=useState(40);
 
 
   const handleSubmit = async (e) => {
@@ -12,8 +17,7 @@ export default function Dashboard() {
     setError("");
     setResult(null);
     setLoading(true);
-    
- 
+
     try {
         
 
@@ -32,6 +36,11 @@ export default function Dashboard() {
       const data = await response.json();
       console.log("Weather data:", data);
       setResult(data);
+      
+      // Update weather state immediately when data is received
+      if (data && data.rain_probability !== undefined) {
+        setWeather(data.rain_probability);
+      }
 
     
     } catch (err) {
@@ -42,8 +51,23 @@ export default function Dashboard() {
     }
   };
 
+  const getImage =()=>{
+  if(weather>90){
+    return rainy;
+  }
+  else if(weather >60){
+    return morecloudy;
+  }
+  else if(weather>=40){
+    return cloudy;
+  }
+  else {
+    return sunny;
+  }
+
+};
   return (
-    <div className="bg-[url(assets/cloud.jpg)] bg-cover h-screen w-full relative">
+    <div className=" bg-cover h-screen w-full relative transition-transform duration-1500 ease-out" style={{ backgroundImage: `url(${getImage()})` }}>
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 via-transparent to-blue-900/20"></div>
       
@@ -72,7 +96,6 @@ export default function Dashboard() {
 
         <button
           type="submit"
-          
           className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-600 disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center"
         >
           Get Weather
@@ -99,8 +122,10 @@ export default function Dashboard() {
             </div>
           ):null }
     {result && (
+      <>
       <div className="bg-black/75 py-4 w-96 mx-auto rounded-lg shadow-lg ">
         <div className="  text-white  mx-10 flex flex-col items-center gap-2">
+         
           <div className="flex gap-1">
           <strong>City:</strong><span>{result.city}</span> 
           </div>
@@ -124,7 +149,10 @@ export default function Dashboard() {
           </div>
         </div>
         </div>
+        
+        </>
       )}
+     
       </div>
     </div>
   );
