@@ -3,7 +3,7 @@
 A simple full-stack weather forecast app built with:
 
 - ⚛️ React (Vite) frontend  
-- 🐍 FastAPI backend (Python)  
+- 🐍 Flask backend (Python)  
 - 🎨 Tailwind CSS for styling  
 - 🌦️ OpenWeatherMap API for live weather data  
 
@@ -30,7 +30,7 @@ npm run dev
 
 cd Backend
 pip install -r requirements.txt
-uvicorn app:app --reload
+python app.py
 
 
 
