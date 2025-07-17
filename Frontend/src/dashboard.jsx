@@ -5,6 +5,10 @@ import sunny from "./assets/sunny.jpg";
 import morecloudy from "./assets/morecloudy.jpg";
 
 export default function Dashboard() {
+
+  
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
@@ -21,7 +25,7 @@ export default function Dashboard() {
     try {
         
 
-      const response = await fetch("http://localhost:5000/weather", {
+      const response = await fetch(`${API_URL}/weather`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
