@@ -52,13 +52,13 @@ export default function Dashboard() {
   };
 
   const getImage =()=>{
-  if(weather>90){
+  if(weather > 90){
     return rainy;
   }
-  else if(weather >60){
+  else if(weather > 60){
     return morecloudy;
   }
-  else if(weather>=40){
+  else if(weather >= 40){
     return cloudy;
   }
   else {
